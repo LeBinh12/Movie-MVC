@@ -1,0 +1,87 @@
+﻿@model WbeMovieUser.Models.movy
+
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+@if(ViewBag.Message != null)
+            {
+                <h1>@ViewBag.Message</h1>
+            }
+<div class="movie-banner d-flex align-items-end">
+    <div class="movie-overlay w-100">
+        <div class="container">
+            <div class="video-container">
+                <iframe width="100%" height="400"
+                        src="https://www.youtube.com/embed/@Model.trailer_url?autoplay=1&mute=1&loop=1&playlist=@Model.trailer_url"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen>
+                </iframe>
+
+                <div class="video-overlay-content">
+                    <h1 class="movie-title">@Model.title</h1>
+                    <div class="d-flex mb-3">
+                        <button class="btn btn-light btn-custom">▶ Xem ngay</button>
+                        <button class="btn btn-outline-light btn-custom">＋ Danh sách</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-white mt-2">
+                <div class="col-md-6">
+                    <div class="movie-info mb-2">
+                        <div class="d-flex align-items-center flex-wrap mb-1">
+                            <span class="me-2">5.688.410 lượt xem</span> |
+                            <span class="rating ms-2">
+                                4.8
+                                <i class="bi bi-star-fill">⭐</i>
+                                <i class="bi bi-star-fill">⭐</i>
+                                <i class="bi bi-star-fill">⭐</i>
+                                <i class="bi bi-star-fill">⭐</i>
+                                <i class="bi bi-star-fill">⭐</i>
+                            </span>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <span class="me-2">@Model.release_date</span> |
+                            <span class="mx-2">T13</span> |
+                            <span class="mx-2">@Model.language</span> |
+                            <span class="mx-2">1 Phần</span> |
+                            <span class="ms-2">Full HD</span>
+                        </div>
+                    </div>
+                    <p>@Model.description</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Diễn viên:</strong> Trần Đô Linh, Tần Văn Lai, Hà Hoàng San, Dụ Ân Thái, Ôn Tranh Vanh, Vương Diễm, Lưu Húc Uy, Phó Tình, Lý Thạnh</p>
+                    <p><strong>Đạo diễn:</strong> Dương Long</p>
+                    <p><strong>Thể loại:</strong>
+                        @foreach(var item in ViewBag.Categories)
+                            {
+                                <span>@item.category_name, </span>
+                            }
+                    </p>
+                </div>
+                <h4 class="row gx-2 gy-3">Danh sách tập phim</h4>
+                @if (ViewBag.Espisodes != null)
+                {
+                <div class="row">
+                    @foreach (var ep in ViewBag.Espisodes)
+                    {
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="card bg-dark text-white shadow border-0">
+                                <a href="@ep.episode_id" class="btn btn-outline-light btn-sm mt-2">@ep.title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>

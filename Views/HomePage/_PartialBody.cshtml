@@ -1,0 +1,171 @@
+﻿
+<style>
+    body {
+        background-color: #111;
+        color: white;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .movie-card {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+        .movie-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+</style>
+
+@{ 
+    var movie = ViewBag.listMovie1 as List<WbeMovieUser.Models.DTO.MoviesDTO>;
+}
+
+
+<div class="container-fluid py-4">
+    <h3>Kungfu Võ Hiệp</h3>
+    <div id="movieCarousel" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row row-cols-2 row-cols-md-5 g-3">
+                    @if (movie != null)
+                    {
+                        foreach (var item in movie)
+                        {
+                            <div class="col">
+                                <div class="movie-card">
+                                    <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
+                                        <img src="@item.thumbnail_url" alt="@item.title" />
+                                    </a>
+                                    <p class="text-center mt-2">
+                                        <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration:none; color:black;">
+                                            @item.title
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row row-cols-2 row-cols-md-5 g-3">
+                    @if (movie != null)
+                    {
+                        foreach (var item in movie)
+                        {
+                            <div class="col">
+                                <div class="movie-card">
+                                    <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
+                                        <img src="@item.thumbnail_url" alt="@item.title" />
+                                    </a>
+                                    <p class="text-center mt-2">
+                                        <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration:none; color:black;">
+                                            @item.title
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <h3 class="mb-3">Bộ phim đình đám</h3>
+    <div id="movieCarousel1" class="carousel slide1">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row row-cols-2 row-cols-md-5 g-3">
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic6.iqiyipic.com/image/20250206/e5/e9/v_144318488_m_601_vi_m3_490_654.webp" alt="REMEMBER">
+                            <p class="text-center mt-2">REMEMBER</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic8.iqiyipic.com/image/20200825/9e/98/v_149909590_m_601_zh-CN_m5_490_654.webp" alt="Sát Thủ Nhân Tạo 2">
+                            <p class="text-center mt-2">Sát Thủ Nhân Tạo 2</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic0.iqiyipic.com/image/20200917/c1/32/v_143296276_m_601_zh-CN_m1_490_654.webp" alt="Trùm Hương Cảng 2">
+                            <p class="text-center mt-2">Trùm Hương Cảng 2</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic9.iqiyipic.com/image/20210315/71/ab/v_157858093_m_601_vi_490_654.webp" alt="Sự Tích Cá Trích">
+                            <p class="text-center mt-2">Sự Tích Cá Trích</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic9.iqiyipic.com/image/20210315/71/ab/v_157858093_m_601_vi_490_654.webp" alt="Sự Tích Cá Trích">
+                            <p class="text-center mt-2">Sự Tích Cá Trích</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row row-cols-2 row-cols-md-4 g-3">
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic6.iqiyipic.com/image/20240806/91/68/v_177394354_m_601_vi_490_654.webp" alt="Long Hổ Bá Vương">
+                            <p class="text-center mt-2">Long Hổ Bá Vương</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic2.iqiyipic.com/image/20230922/fc/58/v_173839510_m_601_vi_490_654.webp" alt="Tầm Long: Trấn Hồn Quan">
+                            <p class="text-center mt-2">Tầm Long: Trấn Hồn Quan</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic4.iqiyipic.com/image/20240611/34/94/v_160307079_m_601_vi_m1_490_654.webp" alt="Câu Chuyện Cảnh Sát Đông Bắc 2">
+                            <p class="text-center mt-2">Câu Chuyện Cảnh Sát Đông Bắc 2</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="movie-card">
+                            <img src="//pic4.iqiyipic.com/image/20250306/02/cc/v_170690899_m_601_en_m4_490_654.webp" alt="Truy Sát Số 0">
+                            <p class="text-center mt-2">Truy Sát Số 0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel1" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel1" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
