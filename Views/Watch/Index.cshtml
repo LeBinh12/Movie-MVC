@@ -1,0 +1,41 @@
+﻿@model WbeMovieUser.Models.movy
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<div style="margin-top:100px; color:white">
+    @if (ViewBag.Message == null)
+    {
+        <h2>Xem Phim</h2>
+        <span>Tên phim: @Model.title</span>
+
+        if (ViewBag.Epcode != null)
+        {
+            foreach (var item in ViewBag.Epcode)
+            {
+                <span>@item.title</span>
+            }
+            if (ViewBag.VideoEpcode != null)
+            {
+                <span>Link phim: @ViewBag.VideoEpcode.file_url</span>
+            }
+        }
+        if (@ViewBag.VideoMovie != null)
+        {
+            <span>Link phim 2: @ViewBag.VideoMovie.file_url</span>
+        }
+    }
+    else
+    {
+        <h1>@ViewBag.Message</h1>
+    }
+</div>
+..<iframe src="https://vip.opstream12.com/share/f2fb9d75af8f3f2eb322ff968e62a324"
+        width="100%"
+        height="500"
+        frameborder="0"
+        allowfullscreen>
+</iframe>
+
+

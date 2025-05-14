@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
+    <Compile Include="Controllers\WatchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -135,6 +136,7 @@
     <Content Include="Views\HomePage\_PartialFooter.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\HomePage\Detail.cshtml" />
+    <Content Include="Views\Watch\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

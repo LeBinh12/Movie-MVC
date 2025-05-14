@@ -54,6 +54,7 @@ namespace WbeMovieUser.Controllers
             }
             var categories = existingMovie.Categories.ToList();
             var espisodes = data.episodes.Where(x => x.series_id == id).ToList();
+            
             if(espisodes != null)
             {
                 ViewBag.Espisodes = espisodes;

@@ -7,30 +7,24 @@
 
 <h2>Detail</h2>
 
-@if(ViewBag.Message != null)
-            {
-                <h1>@ViewBag.Message</h1>
-            }
-<div class="movie-banner d-flex align-items-end">
+@if (ViewBag.Message != null)
+{
+    <h1>@ViewBag.Message</h1>
+}
+<div class="movie-banner d-flex align-items-end" style="margin-top:50px">
     <div class="movie-overlay w-100">
         <div class="container">
-            <div class="video-container">
-                <iframe width="100%" height="400"
-                        src="https://www.youtube.com/embed/@Model.trailer_url?autoplay=1&mute=1&loop=1&playlist=@Model.trailer_url"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen>
-                </iframe>
-
-                <div class="video-overlay-content">
-                    <h1 class="movie-title">@Model.title</h1>
-                    <div class="d-flex mb-3">
-                        <button class="btn btn-light btn-custom">▶ Xem ngay</button>
-                        <button class="btn btn-outline-light btn-custom">＋ Danh sách</button>
+            <div class="video-container position-relative">
+                <img src="@Model.thumbnail_url" alt="Thumbnail" class="w-100" id="thumbnail" style="cursor:pointer;">
+                <div class="video-overlay-content position-absolute bottom-0 start-0 p-3 text-white">
+                    <div class="d-flex">
+                        <a href="/Watch?idMovie=@Model.movie_id" class="btn btn-light me-2">▶ Xem phim</a>
+                        <button id="btnWatchTrailer" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#trailerModal">🎬 Xem trailer</button>
                     </div>
                 </div>
             </div>
+            <h1 class="movie-title text-white">@Model.title</h1>
+
             <div class="row text-white mt-2">
                 <div class="col-md-6">
                     <div class="movie-info mb-2">
@@ -47,41 +41,158 @@
                         </div>
                         <div class="d-flex flex-wrap">
                             <span class="me-2">@Model.release_date</span> |
-                            <span class="mx-2">T13</span> |
                             <span class="mx-2">@Model.language</span> |
-                            <span class="mx-2">1 Phần</span> |
-                            <span class="ms-2">Full HD</span>
+                            <span class="ms-2">@Model.duration phút</span>
                         </div>
                     </div>
-                    <p>@Model.description</p>
+                    <p id="description-short" class="text-white">
+                        @((Model.description?.Length > 200) ? Model.description.Substring(0, 200) + "..." : Model.description)
+                        @if (Model.description?.Length > 200)
+                        {
+                            <a href="javascript:void(0);" id="readMoreLink" class="text-info">Xem thêm</a>
+                        }
+                    </p>
+
+                    <p id="description-full" class="text-white d-none">
+                        @Model.description
+                        <a href="javascript:void(0);" id="readLessLink" class="text-info">Thu gọn</a>
+                    </p>
                 </div>
+
                 <div class="col-md-6">
-                    <p><strong>Diễn viên:</strong> Trần Đô Linh, Tần Văn Lai, Hà Hoàng San, Dụ Ân Thái, Ôn Tranh Vanh, Vương Diễm, Lưu Húc Uy, Phó Tình, Lý Thạnh</p>
-                    <p><strong>Đạo diễn:</strong> Dương Long</p>
-                    <p><strong>Thể loại:</strong>
-                        @foreach(var item in ViewBag.Categories)
+                    @*Diễn Viên*@
+                    <p>
+                        <strong>Diễn viên:</strong>
+                        @if (Model.actors != null)
+                        {
+                            foreach (var item in Model.actors)
                             {
-                                <span>@item.category_name, </span>
+                                <span> @item.name, </span>
                             }
+                        }
+                    </p>
+                    @*Đạo diễn*@
+                    <p>
+                        <strong>Đạo diễn:</strong>
+                        @if (Model.directors != null)
+                        {
+                            foreach (var item in Model.directors)
+                            {
+                                <span> @item.name, </span>
+                            }
+                        }
+                    </p>
+                    <p>
+                        <strong>Thể loại:</strong>
+                        @foreach (var item in ViewBag.Categories)
+                        {
+                            <span>@item.category_name, </span>
+                        }
                     </p>
                 </div>
                 <h4 class="row gx-2 gy-3">Danh sách tập phim</h4>
-                @if (ViewBag.Espisodes != null)
-                {
-                <div class="row">
-                    @foreach (var ep in ViewBag.Espisodes)
+                <div class="episode-list">
+                    @if (ViewBag.Espisodes != null)
                     {
-                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                            <div class="card bg-dark text-white shadow border-0">
-                                <a href="@ep.episode_id" class="btn btn-outline-light btn-sm mt-2">@ep.title</a>
-                            </div>
+                        <div class="row">
+                            @foreach (var ep in ViewBag.Espisodes)
+                            {
+                                <div class="episode-card">
+                                    @*<a href="@ep.episode_id">@ep.title</a>*@
+                                    <a href="/Watch?idMovie=@Model.movie_id&idEpcode=@ep.episode_id">@ep.title</a>
+                                </div>
+                            }
                         </div>
                     }
+                    else
+                    {
+                        <p class="text-white">Hiện tại chưa có tập phim nào.</p>
+                    }
                 </div>
-                }
+                <h4 class="row gx-2 gy-3 mt-4">Gợi ý phim</h4>
+                <div class="row">
+                    @if (ViewBag.RecommendedMovies != null)
+                    {
+                        foreach (var movie in ViewBag.RecommendedMovies)
+                        {
+                            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                <div class="card bg-dark text-white recommended-card">
+                                    <a href="@movie.WatchUrl">
+                                        <img src="@movie.ThumbnailUrl" alt="@movie.Title" class="img-episode" />
+                                    </a>
+                                    <div class="card-body text-center px-2 py-2">
+                                        <h6 class="card-title text-truncate" title="@movie.Title">@movie.Title</h6>
+                                        <a href="@movie.WatchUrl" class="btn btn-sm mt-1">Xem ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-white">Hiện tại chưa có phim gợi ý nào.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-
+    <!-- Modal Trailer -->
+    <div class="modal fade" id="trailerModal" tabindex="-1" aria-labelledby="trailerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="trailerModalLabel">@Model.title - Trailer</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="trailerIframe"
+                                src=""
+                                title="Trailer"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<script>
+        var trailerModal = document.getElementById('trailerModal');
+        var trailerIframe = document.getElementById('trailerIframe');
+        var youtubeId = "@Model.trailer_url"; // chỉ là ID, ví dụ 'abc123'
+
+        trailerModal.addEventListener('show.bs.modal', function () {
+            trailerIframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`;
+        });
+
+        trailerModal.addEventListener('hidden.bs.modal', function () {
+            trailerIframe.src = ""; // ngắt video khi đóng modal
+        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var readMoreLink = document.getElementById("readMoreLink");
+        var readLessLink = document.getElementById("readLessLink");
+        var shortDesc = document.getElementById("description-short");
+        var fullDesc = document.getElementById("description-full");
+
+        if (readMoreLink) {
+            readMoreLink.addEventListener("click", function () {
+                shortDesc.classList.add("d-none");
+                fullDesc.classList.remove("d-none");
+            });
+        }
+
+        if (readLessLink) {
+            readLessLink.addEventListener("click", function () {
+                fullDesc.classList.add("d-none");
+                shortDesc.classList.remove("d-none");
+            });
+        }
+    });
+</script>
