@@ -1,0 +1,75 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WbeMovieUser.Models.movy>
+
+@{
+    ViewBag.Title = "Phim bộ";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+<div class="container mt-5" style="color: #f0f4f5;">
+    <h2 class="mb-4">Danh sách <strong>phim bộ</strong></h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-warning" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var movie in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100" style="background-color: #2a3b3c; color: #f0f4f5;">
+                                <img src="@(string.IsNullOrEmpty(movie.thumbnail_url) ? "https://via.placeholder.com/300x300?text=No+Image" : movie.thumbnail_url)"
+                                     class="card-img-top" alt="@movie.title" style="height: 300px; object-fit: cover;">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">@movie.title</h5>
+                                    <a href="@Url.Action("Detail", "HomePage", new { id = movie.movie_id })"
+                                       class="btn btn-primary mt-auto" style="text-decoration: none; border-bottom: none;">Xem chi tiết</a>
+                                    <a href="@Url.Action("Index", "Watch", new { idMovie = movie.movie_id })"
+                                       class="btn btn-danger mt-2" style="text-decoration: none; border-bottom: none;">Xem phim</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-info w-100 text-center" role="alert">
+                        Hiện chưa có phim bộ nào.
+                    </div>
+                }
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="d-flex justify-content-center mt-4">
+                    @Html.PagedListPager(Model, page => Url.Action("Series", new { page }),
+                        new PagedListRenderOptions
+                        {
+                            DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                            MaximumPageNumbersToDisplay = 5,
+                            LiElementClasses = new[] { "page-item" },
+                            FunctionToTransformEachPageLink = (liTag, aTag) =>
+                            {
+                                aTag.AddCssClass("page-link");
+                                liTag.InnerHtml = aTag.ToString();
+                                return liTag;
+                            }
+                        })
+                </div>
+                <p class="text-center mt-2">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</p>
+            }
+        </div>
+
+        <div class="col-lg-3">
+            @Html.Action("Ranks", "Child")
+        </div>
+    </div>
+</div>

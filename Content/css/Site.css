@@ -1,0 +1,171 @@
+﻿.navbar {
+    padding: 1rem 2rem;
+}
+
+a {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.navbar-brand {
+    transition: all 0.3s ease;
+}
+
+    .navbar-brand:hover {
+        transform: scale(1.05);
+        color: #ff6666 !important;
+    }
+
+.nav-link {
+    font-size: 16px;
+    padding: 0.5rem 1rem;
+    color: #f0f4f5 !important;
+}
+
+    .nav-link:hover {
+        color: #ff4d4d !important;
+        background-color: rgba(255, 77, 77, 0.1);
+        border-radius: 5px;
+    }
+
+.form-control {
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #ff4d4d;
+        box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+    }
+
+.btn-danger {
+    background-color: #ff4d4d;
+    border: none;
+    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.3);
+}
+
+    .btn-danger:hover {
+        background-color: #ff6666;
+        transform: scale(1.05);
+    }
+.search-container {
+    position: relative;
+    width: 250px;
+}
+
+.dropdown-menu {
+    padding: 0.5rem 0;
+    background-color: #f0f4f5 !important;
+}
+
+.dropdown-item {
+    color: #333 !important;
+}
+
+    .dropdown-item:hover {
+        background-color: rgba(255, 77, 77, 0.2) !important;
+        color: #ff4d4d !important;
+    }
+.modal-content {
+    background: linear-gradient(135deg, #f0f4f5, #e1e7e8);
+}
+
+.nav-tabs .nav-link {
+    background: transparent !important;
+    color: #ff4d4d !important;
+}
+
+    .nav-tabs .nav-link.active {
+        background: transparent !important;
+        border-bottom: 3px solid #ff4d4d !important;
+        color: #ff6666 !important;
+        font-weight: 600;
+    }
+
+.nav-link:hover {
+    color: #ff6666 !important;
+    transform: scale(1.05);
+}
+
+.form-control {
+    background-color: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .form-control:focus {
+        border-color: #ff4d4d;
+        box-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
+    }
+
+.btn-danger {
+    background: linear-gradient(90deg, #ff4d4d, #ff6666);
+    border: none;
+    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.3);
+}
+
+    .btn-danger:hover {
+        background: linear-gradient(90deg, #ff6666, #ff4d4d);
+        transform: scale(1.05);
+    }
+
+.btn-primary {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    .btn-primary:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.invalid-feedback {
+    color: #ff4d4d;
+}
+
+a {
+    font-weight: 500;
+}
+
+    a:hover {
+        color: #ff6666 !important;
+        text-decoration: underline;
+    }
+
+.text-muted {
+    color: #666 !important;
+}
+
+
+.navbar-nav .dropdown-toggle img:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+
+
+/*Phân trang
+*/.pagination .page-item .page-link {
+    color: #ff4d4d;
+    background-color: #2a3b3c;
+    border: 1px solid #ff4d4d;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ff4d4d;
+    color: #fff;
+    border-color: #ff4d4d;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #e63e3e;
+    color: #fff;
+}

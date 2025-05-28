@@ -1,0 +1,53 @@
+﻿.modal-content {
+    background: linear-gradient(135deg, #f0f4f5, #e1e7e8);
+}
+
+.nav-tabs .nav-link {
+    background: transparent !important;
+    color: #000000 !important;
+}
+
+#loginModal {
+    z-index: 1055 !important;
+}
+
+.nav-tabs .nav-link.active {
+    background: transparent !important;
+    border-bottom: 3px solid #0000FF !important;
+    color: #ff6666 !important;
+    font-weight: 600;
+}
+
+
+.form-control {
+    background-color: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.invalid-feedback {
+    color: #ff4d4d;
+}
+
+a {
+    font-weight: 500;
+}
+
+    a:hover {
+        color: #ff6666 !important;
+        text-decoration: underline;
+    }
+
+.text-muted {
+    color: #666 !important;
+}

@@ -1,0 +1,163 @@
+﻿@model WbeMovieUser.Models.movy
+
+
+@{
+    ViewBag.Title = "Watch";
+}
+
+<style>
+    .episode-card a.active {
+        color: #ff6600;
+    }
+    .episode-card a:hover {
+         background-color: #555;
+     }
+</style>
+
+
+<div class="container">
+    <div class="video-container">
+        @if (ViewBag.IsSeries == true && ViewBag.VideoEpcode != null)
+        {
+            <iframe id="player"
+                    src="@ViewBag.VideoEpcode.file_url"
+                    width="100%"
+                    height="600"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        }
+        else if (ViewBag.IsSeries == false && ViewBag.VideoMovie != null)
+        {
+            <iframe id="player"
+                    src="@ViewBag.VideoMovie.file_url"
+                    width="100%"
+                    height="600"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        }
+        else
+        {
+            <p class="text-white">@ViewBag.Message</p>
+        }
+    </div>
+
+    <div class="row text-white mt-2">
+        <div class="col-md-12">
+            @if (ViewBag.Message != null)
+            {
+                <h1>@ViewBag.Message</h1>
+            }
+            else
+            {
+                <h2 class="row gx-2 gy-3 mt-4">Phim: @Model.title</h2>
+                <h4 class="row gx-2 gy-3 mt-4">Danh sách tập phim</h4>
+                <div class="episode-list">
+                    @if (ViewBag.IsSeries == true && ViewBag.Episodes != null)
+                    {
+                        <div class="row">
+                            @foreach (var ep in ViewBag.Episodes)
+                            {
+                                <div class="episode-card">
+                                    <a href="/Watch?idMovie=@Model.movie_id&idEpcode=@ep.episode_id" class="@(ViewBag.Epcode?.episode_id == ep.episode_id ? "active" : "")">@ep.title</a>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-white">Đây là phim lẻ, không có tập phim.</p>
+                    }
+                </div>
+
+                <!-- Reorganized Movie Details Section -->
+                <div class="movie-details">
+                    <div class="rating-section">
+                        <h4>Đánh giá phim</h4>
+                        <div class="star-rating" id="starRating" data-movie-id="@Model.movie_id">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                            <span class="rating-text" id="ratingText">Chọn số sao để đánh giá</span>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-stats">
+                        <span>@Model.view_count lượt xem</span> |
+                        @{
+                            decimal averageRating = ViewBag.AverageRating ?? 0;
+                        }
+                        <span>@averageRating ★</span>
+                        <span>@Model.language</span> |
+                        <span>@(ViewBag.IsSeries == true ? "1 Phần" : "")</span> |
+                        <span>Full HD</span>
+                    </div>
+
+                    @*Diễn Viên*@
+                    <p>
+                        <strong>Diễn viên:</strong>
+                        @if (Model.actors != null)
+                        {
+                            foreach (var item in Model.actors)
+                            {
+                                <span> @item.name, </span>
+                            }
+                        }
+                    </p>
+                    @*Đạo diễn*@
+                    <p>
+                        <strong>Đạo diễn:</strong>
+                        @if (Model.directors != null)
+                        {
+                            foreach (var item in Model.directors)
+                            {
+                                <span> @item.name, </span>
+                            }
+                        }
+                    </p>
+                    <p>
+                        <strong>Thể loại:</strong>
+                        @foreach (var item in ViewBag.Categories)
+                        {
+                            <span>@item.category_name, </span>
+                        }
+                    </p>
+
+                    <p><strong>Nội dung phim:</strong> @Model.description </p>
+                </div>
+            }
+            <h4 class="row gx-2 gy-3 mt-4">Gợi ý phim</h4>
+            <div class="row">
+                @if (ViewBag.RecommendedMovies != null)
+                {
+                    foreach (var movie in ViewBag.RecommendedMovies)
+                    {
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="card bg-dark text-white recommended-card">
+                                <a href="~/HomePage/Detail/@movie.movie_id">
+                                    <img src="@movie.thumbnail_url" alt="@movie.title" class="img-episode" />
+                                </a>
+                                <div class="card-body text-center px-2 py-2">
+                                    <h6 class="card-title text-truncate" title="@movie.title">@movie.title</h6>
+                                    <a href="~/HomePage/Detail/@movie.movie_id" class="btn btn-sm mt-1">Xem chi tiết</a>
+                                    <a href="~/Watch?idMovie=@movie.movie_id" class="btn btn-sm mt-1">Xem phim</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-white">Hiện tại chưa có phim gợi ý nào.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

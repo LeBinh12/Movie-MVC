@@ -1,0 +1,290 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<WbeMovieUser.Models.Nation>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <!-- Thông báo -->
+    <div id="alertContainer" style="position: fixed; top: 20px; right: 20px; z-index: 1050; display: none; min-width: 250px;">
+        <div id="alertMessage" class="alert alert-success alert-dismissible fade show shadow" role="alert">
+            <span id="alertText">Thành công!</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+        </div>
+    </div>
+
+    <h2 class="mb-4">Quản lý quốc gia</h2>
+
+    <form method="get" action="@Url.Action("Index")" class="mb-3 d-flex">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" value="@ViewBag.CurrentSearch" placeholder="Tìm kiếm theo tên quốc gia..." />
+                <button type="submit" class="btn btn-primary">Tìm</button>
+            </div>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddNation">
+                <i class="bi bi-plus-circle"></i>
+            </a>
+        </div>
+    </form>
+
+
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center" style="width: 200px;">Mã quốc gia</th>
+                <th class="text-center">Tên quốc gia</th>
+                <th class="text-center" style="width: 150px;">Trạng thái</th>
+                <th class="text-center" style="width: 150px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@item.nation_id</td>
+                    <td class="text-center">@item.nation_name</td>
+                    <td class="text-center align-items-center">
+                        <div class="d-flex align-items-center gap-2 form-check form-switch">
+                            <input class="form-check-input status-switch"
+                                   type="checkbox"
+                                   id="statusSwitch_@item.nation_id"
+                                   data-id="@item.nation_id"
+                                   @(item.status == true ? "checked" : "") />
+
+                            <label class="form-check-label"
+                                   for="statusSwitch_@item.nation_id"
+                                   id="statusLabel_@item.nation_id">
+                                @(item.status == true ? "Hiện" : "Ẩn")
+                            </label>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group" aria-label="Thao tác quốc gia">
+                            <a href="#"
+                               class="btn btn-sm btn-warning btnEditNation"
+                               title="Cập nhật quốc gia"
+                               data-bs-toggle="modal"
+                               data-bs-target="#modalUpdateNation"
+                               data-id="@item.nation_id"
+                               data-name="@item.nation_name"
+                               data-status="@item.status.ToString().ToLower()">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-sm btn-danger btnDeleteNation"
+                               title="Xóa quốc gia"
+                               data-bs-toggle="modal"
+                               data-bs-target="#modalDeleteNation"
+                               data-id="@item.nation_id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Modal Thêm phim -->
+    <div class="modal fade" id="modalAddNation" tabindex="-1" aria-labelledby="modalAddNationLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm quốc gia mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body px-3">
+                    <form id="formAddNations" action="/ManagerNations/Add">
+                        <div class="mb-3">
+                            <label for="nationName" class="form-label">Tên quốc gia</label>
+                            <input type="text" class="form-control" id="nationName" placeholder="Nhập tên quốc gia...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Trạng thái</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="statusSwitch" />
+                                <label class="form-check-label" for="statusSwitch">Bật để hiển thị quốc gia</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveNation">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cập nhật thể loại phim -->
+    <div class="modal fade" id="modalUpdateNation" tabindex="-1" aria-labelledby="modalUpdateNationLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhật quốc gia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body px-3">
+                    <form id="formUpdateNation" action="/ManagerNations/Update" method="post">
+                        <div class="mb-3">
+                            <label for="updateNationName" class="form-label">Tên quốc gia</label>
+                            <input type="text" class="form-control" id="updateNationName" placeholder="Nhập tên quốc gia..">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Trạng thái</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="updateStatusSwitch" />
+                                <label class="form-check-label" for="updateStatusSwitch">Bật để hiển thị quốc gia</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdateNation">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận thay đổi trạng thái -->
+    <div class="modal fade" id="modalToggleStatus" tabindex="-1" aria-labelledby="modalToggleStatusLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận thay đổi trạng thái</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-question-circle-fill text-primary" style="font-size: 2rem;"></i>
+                    <p class="mt-3 mb-1" id="statusConfirmMessage">Bạn có chắc chắn muốn thay đổi trạng thái không?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmStatusNationChange">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Xóa thể loại phim -->
+    <div class="modal fade" id="modalDeleteNation" tabindex="-1" aria-labelledby="modalDeleteNationLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa quốc gia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 2rem;"></i>
+                    <p class="mt-3 mb-1">Bạn có chắc chắn muốn xóa quốc gia này không?</p>
+                    <p class="fw-bold text-danger">Thao tác này không thể hoàn tác!</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.CurrentSearch }),
+            new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                Display = PagedListDisplayMode.IfNeeded,
+                UlElementClasses = new[] { "pagination", "justify-content-center" }
+            })
+    </div>
+
+</div>
+
+<style>
+.pagination {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.pagination li {
+    margin: 0 2px;
+}
+
+.pagination li a,
+.pagination li span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    color: #007bff;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.pagination li a:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination li.active a,
+.pagination li.active span {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    font-weight: 600;
+}
+
+.pagination li.disabled span,
+.pagination li.disabled a {
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+}
+
+.pagination li:first-child a,
+.pagination li:last-child a {
+    font-size: 1rem;
+}
+
+.pagination li:first-child a:hover,
+.pagination li:last-child a:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.pagination li a[title="Go to previous page"],
+.pagination li a[title="Go to next page"] {
+    font-size: 1rem;
+}
+
+/* Responsive: Giảm kích thước trên màn hình nhỏ */
+@*@media (max-width: 576px) {
+    .pagination {
+        font-size: 0.85rem;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        min-width: 32px;
+        height: 32px;
+    }
+}*@
+</style>
+
+
+

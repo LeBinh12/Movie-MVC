@@ -1,0 +1,220 @@
+﻿.video-container {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+#player {
+    width: 100% !important;
+    height: 600px !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.video-overlay-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2;
+    color: white;
+}
+
+.btn-custom {
+    margin-right: 10px;
+}
+
+.movie-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.episode-card {
+    background: #242121;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .episode-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .episode-card a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+.col-md-2 {
+    padding: 5px;
+}
+
+.img-episode {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+    .img-episode:hover {
+        transform: scale(1.05);
+    }
+
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+}
+
+.episode-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card {
+    border: none;
+    background: #242121;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+.recommended-card {
+    text-align: center;
+    padding: 10px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+    .recommended-card .img-episode {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .recommended-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 14px rgba(255, 255, 255, 0.2);
+    }
+
+    .recommended-card .btn-sm {
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background: #ff4d4d;
+        color: #ffffff;
+        border: none;
+        transition: background 0.2s ease;
+    }
+
+        .recommended-card .btn-sm:hover {
+            background: #ff7878;
+        }
+
+.custom-movie-card {
+    background: #242121;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px;
+    margin: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+    .custom-movie-card:hover {
+        transform: scale(1.03);
+    }
+
+    .custom-movie-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .custom-movie-card .card-content {
+        padding: 10px;
+        color: #ffffff;
+        text-align: center;
+    }
+
+        .custom-movie-card .card-content h4 {
+            margin: 0;
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .custom-movie-card .card-content .rating {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+            .custom-movie-card .card-content .rating .star {
+                color: #ffd700;
+                margin-left: 5px;
+            }
+
+.movie-details {
+    margin-top: 20px;
+}
+
+.rating-section {
+    margin-bottom: 15px;
+}
+
+.star-rating {
+    display: inline-block;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+    .star-rating .star {
+        color: #ccc;
+        margin-right: 5px;
+    }
+
+        .star-rating .star.filled {
+            color: #ffd700;
+        }
+
+.rating-text {
+    color: #ffffff;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.movie-stats {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+    .movie-stats span {
+        margin-right: 10px;
+    }

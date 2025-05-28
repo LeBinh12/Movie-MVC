@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+<div class="container-fluid mt-5" style="background-color: #1c2526; color: #f0f4f5; padding: 20px;">
+    <div class="row">
+        <!-- Bên trái: Form tìm kiếm và kết quả tìm kiếm -->
+        <div class="col-lg-8">
+            <!-- Form tìm kiếm -->
+            <!--<div class="card mb-4" style="background-color: #2a3b3c; color: #f0f4f5;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Tìm kiếm phim</h5>
+                </div>
+                <div class="card-body">
+                    <form id="searchForm" method="get" action="">
+                        <div class="mb-3">
+                            <label for="searchTerm" class="form-label">Tên phim</label>
+                            <input type="text" class="form-control" id="searchTerm" name="search" placeholder="Nhập tên phim..." />
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Thể loại</label>
+                            <select class="form-select" id="category" name="category">
+                                <option value="">Tất cả</option>
+                                <option value="1">Hành động</option>
+                                <option value="2">Hài hước</option>
+                                <option value="3">Tình cảm</option>
+                                <option value="4">Kinh dị</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                    </form>
+                </div>
+            </div>-->
+
+            <!-- Kết quả tìm kiếm (dữ liệu ảo) -->
+            <h2 class="mb-4">Tất cả phim</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: #2a3b3c; color: #f0f4f5;">
+                        <img src="https://via.placeholder.com/300x300?text=Phim+1" class="card-img-top" alt="Phim 1" style="height: 300px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Phim Hành Động 1</h5>
+                            <a href="#" class="btn btn-primary">Xem</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: #2a3b3c; color: #f0f4f5;">
+                        <img src="https://via.placeholder.com/300x300?text=Phim+2" class="card-img-top" alt="Phim 2" style="height: 300px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Phim Hài Hước 2</h5>
+                            <a href="#" class="btn btn-primary">Xem</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: #2a3b3c; color: #f0f4f5;">
+                        <img src="https://via.placeholder.com/300x300?text=Phim+3" class="card-img-top" alt="Phim 3" style="height: 300px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Phim Tình Cảm 3</h5>
+                            <a href="#" class="btn btn-primary">Xem</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: #2a3b3c; color: #f0f4f5;">
+                        <img src="https://via.placeholder.com/300x300?text=Phim+4" class="card-img-top" alt="Phim 4" style="height: 300px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Phim Kinh Dị 4</h5>
+                            <a href="#" class="btn btn-primary">Xem</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bên phải: Danh sách phim rank cao (cố định) -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm top-movies-sticky" style="background-color: #2a3b3c; color: #f0f4f5;">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Top Phim Được Yêu Thích</h5>
+                </div>
+                <div class="card-body">
+                    <div class="card mb-3" style="background-color: #3a4b4c; color: #f0f4f5;">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <img src="https://via.placeholder.com/100x100?text=Rank+1" class="img-fluid rounded-start" alt="Phim Rank 1" style="height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h6 class="card-title">Phim Hành Động 1</h6>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-regular fa-star text-secondary"></i>
+                                        </div>
+                                        <span class="ms-2">4/5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3" style="background-color: #3a4b4c; color: #f0f4f5;">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <img src="https://via.placeholder.com/100x100?text=Rank+2" class="img-fluid rounded-start" alt="Phim Rank 2" style="height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h6 class="card-title">Phim Hài Hước 2</h6>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-regular fa-star text-secondary"></i>
+                                            <i class="fa-regular fa-star text-secondary"></i>
+                                        </div>
+                                        <span class="ms-2">3/5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3" style="background-color: #3a4b4c; color: #f0f4f5;">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <img src="https://via.placeholder.com/100x100?text=Rank+3" class="img-fluid rounded-start" alt="Phim Rank 3" style="height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h6 class="card-title">Phim Tình Cảm 3</h6>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <i class="fa-regular fa-star text-secondary"></i>
+                                        </div>
+                                        <span class="ms-2">4/5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

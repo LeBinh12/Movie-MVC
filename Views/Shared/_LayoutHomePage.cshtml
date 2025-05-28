@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/Watch.css" rel="stylesheet" />
+    <link href="~/Content/css/Chat.css" rel="stylesheet" />
+    <link href="~/Content/css/Child.css" rel="stylesheet" />
+    <link href="~/Content/css/search.css" rel="stylesheet" />
+    <link href="~/Content/css/Auth.css" rel="stylesheet" />
+    <link href="~/Content/css/Movie_Detail2.css" rel="stylesheet" />
+</head>
+<body style="background: #242121">
+    <div class="container">
+        <div class="fixed top-0 left-0 right-0">
+            @Html.Partial("_PartialHeader")
+        </div>
+        <div style="margin-top:40px">
+            @RenderBody()
+        </div>
+        <div>
+            @Html.Partial("_PartialFooter")
+        </div>
+    </div>
+
+
+    @*nút chat*@
+    <div id="chat-button" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <button class="btn btn-primary rounded-circle p-3 shadow" onclick="toggleChat()">
+            💬
+        </button>
+    </div>
+
+    <div id="chat-box" style="position: fixed; bottom: 80px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc; display: none; flex-direction: column; z-index: 999;">
+        <div style="background: #007bff; color: white; padding: 10px;">Tư vấn phim</div>
+        <div id="chat-content" style="flex-grow: 1; color: black; overflow-y: auto; padding: 10px;"></div>
+        <div style="padding: 10px;">
+            <input type="text" id="chat-input" class="form-control" placeholder="Hỏi gì về phim..." />
+            <button class="btn btn-sm btn-primary mt-2 w-100" onclick="sendMessageChatBox2()">Gửi</button>
+        </div>
+    </div>
+
+    @*<button id="userChatBtn" class="chat-toggle-btn btn btn-secondary" style="position: fixed; bottom: 20px; right: 340px; z-index: 1000;" onclick="handleUserChatButtonClick()"><i class="fa-solid fa-user"></i></button>
+
+    <div id="userChatBox" class="chat-box" style="position: fixed; bottom: 80px; right: 340px; width: 300px; height: 400px; background: white; border: 1px solid #ccc; display: none; flex-direction: column; z-index: 998;">
+        <div class="chat-header" style="background: #6c757d; color: white; padding: 10px;">
+            User Chat
+            <span onclick="document.getElementById('userChatBox').style.display='none'" style="cursor:pointer; float:right;">×</span>
+        </div>
+        <div id="userMessages" class="chat-messages" style="flex-grow: 1; color:black; overflow-y: auto; padding: 10px;"></div>
+        <div class="chat-input" style="padding: 10px; display: flex; gap: 5px;">
+            <input type="text" id="userInput" class="form-control" placeholder="Nhập tin nhắn..." style="flex: 1;" />
+            <button onclick="sendMessage('user')" class="btn btn-primary">Gửi</button>
+        </div>
+    </div>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="~/Content/js/ChatBox.js"></script>
+    <script src="~/Content/js/Chat.js"></script>
+    <script src="~/Content/js/AjaxRating.js"></script>
+    <script src="~/Content/js/Authentication2.js"></script>
+
+    <script>
+        function toggleChat() {
+            const chatBox = document.getElementById("chat-box");
+            chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
+        }
+
+        function appendMessage(sender, message) {
+            const chat = document.getElementById("chat-content");
+            const div = document.createElement("div");
+            div.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function sendMessageChatBox2() {
+            const input = document.getElementById("chat-input");
+            const message = input.value.trim();
+            if (message === '') return;
+
+            appendMessage("Bạn", message);
+            input.value = "";
+            $.ajax({
+                url: '/ChatBox/GetMovieSuggestionFromGemini',
+                method: 'POST',
+                data: { userMessage: message },
+                success: function (response) {
+                    appendMessage("Bot", response);
+                },
+                error: function () {
+                    appendMessage("Bot", "Xin lỗi, không thể phản hồi lúc này.");
+                }
+            });
+        }
+        function handleUserChatButtonClick() {
+              var isLoggedIn = '@(Session["user"] != null ? "true" : "false")';
+               
+            if (isLoggedIn) {
+                toggleUserChatBox();
+            } else {
+                $('#loginNotificationModal').modal('show');
+            }
+        }
+    </script>
+</body>
+</html>

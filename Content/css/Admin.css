@@ -1,0 +1,290 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background-color: #2c3e50; /* màu nền tối, dễ nhìn */
+    padding: 20px 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .sidebar h3 {
+        color: #ecf0f1;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+            .sidebar ul li a {
+                display: block;
+                color: #bdc3c7;
+                text-decoration: none;
+                padding: 12px 30px;
+                font-size: 16px;
+                border-left: 4px solid transparent;
+                transition: all 0.3s ease;
+                border-radius: 0 20px 20px 0;
+            }
+
+                .sidebar ul li a:hover {
+                    background-color: #34495e;
+                    color: #fff;
+                    border-left-color: #e74c3c; /* Màu đỏ nổi bật khi hover */
+                }
+
+                .sidebar ul li a.active {
+                    background-color: #e74c3c;
+                    color: #fff;
+                    border-left-color: #c0392b;
+                    font-weight: 600;
+                }
+
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 220px;
+    right: 0;
+    height: 60px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.main-content {
+    margin-left: 200px;
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.container {
+    padding-left: 20px;
+    max-width: 900px;
+}
+
+.table thead th {
+    vertical-align: middle;
+}
+
+    .table thead th.text-center {
+        text-align: center;
+    }
+
+.table tbody td {
+    vertical-align: middle;
+}
+
+    .table tbody td.text-center {
+        text-align: center;
+    }
+
+.table tbody tr:hover {
+    background-color: #e3f0ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    box-shadow: 0 4px 8px rgb(0 123 255 / 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #004aad;
+        box-shadow: 0 6px 12px rgb(0 123 255 / 0.5);
+    }
+
+.btn-group .btn {
+    margin-right: 8px;
+}
+
+.btn-sm {
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f9fbff;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* Modal chính */
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.3s ease;
+}
+
+.modal-header {
+    background-color: #004aad;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.modal-body {
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.modal-footer {
+    background-color: #f1f1f1;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.form-control,
+.selectpicker {
+    border-radius: 10px;
+    box-shadow: none;
+    transition: border-color 0.2s;
+}
+
+    .form-control:focus,
+    .selectpicker:focus {
+        border-color: #004aad;
+        box-shadow: 0 0 0 0.2rem rgba(0, 74, 173, 0.25);
+    }
+
+.form-check-label {
+    margin-left: 10px;
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #004aad;
+    border-color: #004aad;
+}
+
+    .btn-primary:hover {
+        background-color: #003a88;
+        border-color: #003a88;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+/* Danh sách tập phim */
+.tapPhimItem input {
+    border-radius: 6px;
+}
+
+/* Nút thêm tập phim */
+#btnAddTapPhim {
+    margin-top: 10px;
+}
+
+
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.notification-icon {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.notification-list {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 200px;
+}
+
+    .notification-list li {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+    }
+
+        .notification-list li:hover {
+            background-color: #f0f0f0;
+        }
+
+
+
+textarea.form-control {
+    resize: vertical; 
+    min-height: 100px;
+}
+
+
+
+

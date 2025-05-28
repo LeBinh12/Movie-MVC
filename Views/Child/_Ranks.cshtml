@@ -1,0 +1,76 @@
+﻿@model Tuple<List<WbeMovieUser.Models.movy>, List<WbeMovieUser.Models.movy>>
+
+<div class="card shadow-sm top-movies-sticky" style="background-color: #2a3b3c; color: #f0f4f5;">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Top Phim Được Yêu Thích</h5>
+    </div>
+    <div class="card-body">
+        @foreach (var movie in Model.Item1.Select((m, i) => new { Movie = m, Index = i + 1 }))
+        {
+            <a href="@Url.Action("Detail", "HomePage", new { id = movie.Movie.movie_id })" style="text-decoration: none;">
+
+                <div class="card mb-3" style="background-color: #3a4b4c; color: #f0f4f5;">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="@movie.Movie.thumbnail_url" class="img-fluid rounded-start" alt="Phim Rank @movie.Index" style="height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h6 class="card-title">@movie.Movie.title</h6>
+                                <div class="d-flex align-items-center">
+                                    <div class="rating">
+                                        @{
+                                            int rating = (int)Math.Round(movie.Movie.rating ?? 0);
+                                            for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= rating)
+                                                {
+                                                    <i class="fa-solid fa-star text-warning"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa-regular fa-star text-secondary"></i>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <span class="ms-2">@movie.Movie.rating/5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+<!-- Top lượt xem -->
+<div class="card shadow-sm top-movies-sticky mt-4" style="background-color: #2a3b3c; color: #f0f4f5;">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Top Phim Nhiều Lượt Xem</h5>
+    </div>
+    <div class="card-body">
+        @foreach (var movie in Model.Item2.Select((m, i) => new { Movie = m, Index = i + 1 }))
+        {
+            <a href="@Url.Action("Detail", "HomePage", new { id = movie.Movie.movie_id })" style="text-decoration: none;">
+                <div class="card mb-3" style="background-color: #3a4b4c; color: #f0f4f5;">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="@movie.Movie.thumbnail_url" class="img-fluid rounded-start" alt="Phim View Rank @movie.Index" style="height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h6 class="card-title">@movie.Movie.title</h6>
+                                <div class="d-flex align-items-center">
+                                    <i class="fa-solid fa-eye text-warning"></i>
+                                    <span class="ms-2">@movie.Movie.view_count lượt xem</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿.rating i {
+    font-size: 1rem;
+}
+
+.card-img-top {
+    border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.top-movies-sticky {
+    position: sticky;
+    top: 20px; 
+}
+
+@media (max-width: 992px) {
+    .col-lg-8, .col-lg-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .top-movies-sticky {
+        position: static; 
+    }
+}
