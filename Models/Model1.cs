@@ -13,6 +13,7 @@ namespace WbeMovieUser.Models
         }
 
         public virtual DbSet<actor> actors { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ChatMessage> ChatMessages { get; set; }
         public virtual DbSet<comment> comments { get; set; }

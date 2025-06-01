@@ -146,6 +146,7 @@
   <ItemGroup>
     <Content Include="Content\css\Admin.css" />
     <Content Include="Content\css\Auth.css" />
+    <Content Include="Content\css\AuthAdmin.css" />
     <Content Include="Content\css\Chat.css" />
     <Content Include="Content\css\ChatBox.css" />
     <Content Include="Content\css\Child.css" />
@@ -153,15 +154,17 @@
     <Content Include="Content\css\ManagerMovie.css" />
     <Content Include="Content\css\Movie_Detail2.css" />
     <Content Include="Content\css\search.css" />
-    <Content Include="Content\css\Site.css" />
+    <Content Include="Content\css\Site2.css" />
     <Content Include="Content\css\Watch.css" />
     <Content Include="Content\js\AjaxActor2.js" />
-    <Content Include="Content\js\AjaxAddMovie2.js" />
+    <Content Include="Content\js\AjaxAddMovie3.js" />
+    <Content Include="Content\js\AjaxAuthenticationAdmin2.js" />
     <Content Include="Content\js\AjaxCategories2.js" />
     <Content Include="Content\js\AjaxDirector2.js" />
     <Content Include="Content\js\AjaxNation.js" />
     <Content Include="Content\js\AjaxRating.js" />
-    <Content Include="Content\js\Authentication2.js" />
+    <Content Include="Content\js\AjaxUser.js" />
+    <Content Include="Content\js\Authentication3.js" />
     <Content Include="Content\js\ChatBox.js" />
     <Content Include="Content\js\ManagerCategories.js" />
     <Content Include="Content\js\ManagerMovie.js" />
@@ -177,12 +180,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\AuthenticationAdminController.cs" />
     <Compile Include="Controllers\Admin\HomeAdminController.cs" />
     <Compile Include="Controllers\Admin\ManagerActorController.cs" />
     <Compile Include="Controllers\Admin\ManagerCategoriesController.cs" />
     <Compile Include="Controllers\Admin\ManagerDirectorController.cs" />
     <Compile Include="Controllers\Admin\ManagerMovieController.cs" />
     <Compile Include="Controllers\Admin\ManagerNationController.cs" />
+    <Compile Include="Controllers\Admin\ManagerUserController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\ChatBoxController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
@@ -194,12 +199,14 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Models\actor.cs" />
+    <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\comment.cs" />
     <Compile Include="Models\director.cs" />
     <Compile Include="Models\DTO\EpisodeViewModel.cs" />
     <Compile Include="Models\DTO\MoviesDTO.cs" />
+    <Compile Include="Models\DTO\MovieView.cs" />
     <Compile Include="Models\DTO\MovieViewModel.cs" />
     <Compile Include="Models\DTO\RelatedId.cs" />
     <Compile Include="Models\DTO\UserInfoViewModel.cs" />
@@ -249,6 +256,10 @@
     <Content Include="Views\Child\History.cshtml" />
     <Content Include="Views\Child\Actor.cshtml" />
     <Content Include="Views\Child\Director.cshtml" />
+    <Content Include="Views\ManagerUser\Index.cshtml" />
+    <Content Include="Views\AuthenticationAdmin\Index.cshtml" />
+    <Content Include="Views\HomeAdmin\Index.cshtml" />
+    <Content Include="Views\HomeAdmin\_AdminNavbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

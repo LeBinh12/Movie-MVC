@@ -19,7 +19,13 @@ namespace WbeMovieUser.Controllers
                 ViewBag.Message = "Vui lòng nhập từ khóa để tìm kiếm.";
                 return View(new List<movy>().ToPagedList(page ?? 1, 6));
             }
-            var movieSearch = data.movies.Where(x => x.title.ToLower().Contains(search.ToLower())).ToList();
+            var movieSearch = data.movies
+                .Where(x =>
+                    x.title.ToLower().Contains(search.ToLower()) ||
+                    x.actors.Any(a => a.name.ToLower().Contains(search.ToLower())) ||
+                    x.directors.Any(d => d.name.ToLower().Contains(search.ToLower()))
+                )
+                .ToList();
             if (movieSearch == null)
             {
                 ViewBag.Message = "Không tồn tại phim bạn tìm";

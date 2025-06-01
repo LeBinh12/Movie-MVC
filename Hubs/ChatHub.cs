@@ -33,7 +33,6 @@ namespace WbeMovieUser.Hubs
 
         public override async Task OnConnected()
         {
-            // Không cần logic dựa trên Referer nữa, sẽ gọi JoinGroup từ client
             await base.OnConnected();
         }
     }

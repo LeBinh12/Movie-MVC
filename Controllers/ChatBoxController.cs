@@ -26,7 +26,8 @@ namespace WbeMovieUser.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                var prompt = $"Bạn là một trợ lý chuyên tư vấn phim. Hãy gợi ý phim cho người dùng bằng tiếng Việt, dựa trên yêu cầu sau: \"{userPrompt}\" và trả lời ngắn gọn giúp tôi";
+                var prompt = $"Bạn là một trợ lý chuyên tư vấn phim. Hãy gợi ý phim cho người dùng bằng tiếng Việt, dựa trên yêu cầu sau:" +
+                    $" \"{userPrompt}\" và trả lời ngắn gọn giúp tôi";
                 var requestBody = new
                 {
                     contents = new[]

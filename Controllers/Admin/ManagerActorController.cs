@@ -14,18 +14,20 @@ namespace WbeMovieUser.Controllers.Admin
         Model1 data = new Model1();
         public ActionResult Index(string search = "", int? page = 1)
         {
+            if (Session["AdminName"] == null && Session["AdminId"] == null)
+                return RedirectToAction("Index", "AuthenticationAdmin");
+            
             var actorsQuery = data.actors.AsQueryable();
-
             if (!string.IsNullOrWhiteSpace(search))
             {
                 actorsQuery = actorsQuery.Where(a => a.name.Contains(search));
             }
 
-            var actors = actorsQuery.ToList();
+            var actors = actorsQuery.OrderByDescending(x => x.actor_id).ToList();
 
             ViewBag.Search = search;
 
-            int pageSize = 5; 
+            int pageSize = 10; 
             int pageNumber = (page ?? 1);
 
             return View(actors.ToPagedList(pageNumber, pageSize));

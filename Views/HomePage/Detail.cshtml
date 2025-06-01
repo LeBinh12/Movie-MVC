@@ -97,17 +97,15 @@
 
 <!-- Danh sách tập phim -->
 <h4 class="text-white mt-4">Danh sách tập phim</h4>
-<div class="episode-list row gx-2 gy-3">
+<div class="episode-list">
     @if (ViewBag.Espisodes != null)
     {
         foreach (var ep in ViewBag.Espisodes)
         {
-            <div class="col-6 col-sm-4 col-md-3">
-                <div class="episode-card bg-dark text-white p-2 rounded">
-                    <a href="/Watch?idMovie=@Model.movie_id&idEpcode=@ep.episode_id" class="text-decoration-none text-white">
-                        @ep.title
-                    </a>
-                </div>
+            <div class="episode-card">
+                <a href="/Watch?idMovie=@Model.movie_id&idEpcode=@ep.episode_id" class="text-decoration-none text-white">
+                    @ep.title
+                </a>
             </div>
         }
     }
@@ -116,92 +114,93 @@
         <p class="text-white">Hiện tại chưa có tập phim nào.</p>
     }
     }
+</div>
 
-    <!-- Gợi ý phim -->
-    <h4 class="text-white mt-4">Gợi ý phim</h4>
-    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
-        @if (ViewBag.RecommendedMovies != null)
+<!-- Gợi ý phim -->
+<h4 class="text-white mt-4">Gợi ý phim</h4>
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
+    @if (ViewBag.RecommendedMovies != null)
+    {
+        foreach (var movie in ViewBag.RecommendedMovies)
         {
-            foreach (var movie in ViewBag.RecommendedMovies)
-            {
-                <div class="col">
-                    <div class="card bg-dark text-white recommended-card">
-                        <a href="@Url.Action("Detail", "HomePage", new { id = movie.movie_id })">
-                            <img src="@movie.thumbnail_url" alt="@movie.title" class="img-fluid" style="height:200px; width:150px"/>
-                        </a>
-                        <div class="card-body text-center p-2">
-                            <h6 class="card-title text-truncate" title="@movie.title">@movie.title</h6>
-                            <a href="@Url.Action("Detail", "HomePage", new { id = movie.movie_id })" class="btn btn-sm btn-outline-light mt-1">Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            <p class="text-white">Hiện tại chưa có phim gợi ý nào.</p>
-        }
-        }
-
-        <!-- Modal Trailer -->
-        <div class="modal fade" id="trailerModal" tabindex="-1" aria-labelledby="trailerModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title text-black" id="trailerModalLabel">@Model.title - Trailer</h5>
-                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-0">
-                        <div class="ratio ratio-16x9">
-                            <iframe id="trailerIframe" src="" title="Trailer" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </div>
+            <div class="col">
+                <div class="card bg-dark text-white recommended-card">
+                    <a href="@Url.Action("Detail", "HomePage", new { id = movie.movie_id })">
+                        <img src="@movie.thumbnail_url" alt="@movie.title" class="img-fluid" style="height:200px; width:150px" />
+                    </a>
+                    <div class="card-body text-center p-2">
+                        <h6 class="card-title text-truncate" title="@movie.title">@movie.title</h6>
+                        <a href="@Url.Action("Detail", "HomePage", new { id = movie.movie_id })" class="btn btn-sm btn-outline-light mt-1">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
+        }
+    }
+    else
+    {
+        <p class="text-white">Hiện tại chưa có phim gợi ý nào.</p>
+    }
+    }
+</div>
+<!-- Modal Trailer -->
+<div class="modal fade" id="trailerModal" tabindex="-1" aria-labelledby="trailerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-black" id="trailerModalLabel">@Model.title - Trailer</h5>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="ratio ratio-16x9">
+                    <iframe id="trailerIframe" src="" title="Trailer" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
 
-        <style>
-            .movie-container {
-                gap: 20px;
-            }
+<style>
+    .movie-container {
+        gap: 20px;
+    }
 
-            .movie-left-col {
-                flex: 0 0 auto;
-                max-width: 300px;
-            }
+    .movie-left-col {
+        flex: 0 0 auto;
+        max-width: 300px;
+    }
 
-            .movie-right-col {
-                flex: 1;
-            }
+    .movie-right-col {
+        flex: 1;
+    }
 
-            .movie-card {
-                background: #1a1a1a;
-                padding: 15px;
-                border-radius: 8px;
-            }
+    .movie-card {
+        background: #1a1a1a;
+        padding: 15px;
+        border-radius: 8px;
+    }
 
-            .episode-card {
-                transition: transform 0.2s;
-            }
+    .episode-card {
+        transition: transform 0.2s;
+    }
 
-                .episode-card:hover {
-                    transform: scale(1.05);
-                }
+        .episode-card:hover {
+            transform: scale(1.05);
+        }
 
-            .recommended-card img {
-                border-radius: 8px;
-            }
+    .recommended-card img {
+        border-radius: 8px;
+    }
 
-            .recommended-card .card-body {
-                padding: 5px;
-            }
+    .recommended-card .card-body {
+        padding: 5px;
+    }
 
-            .card-title {
-                font-size: 14px;
-            }
-        </style>
+    .card-title {
+        font-size: 14px;
+    }
+</style>
 
-        <script>
+<script>
     var trailerModal = document.getElementById('trailerModal');
     var trailerIframe = document.getElementById('trailerIframe');
     var youtubeId = "@Model.trailer_url"; // Chỉ lấy ID, ví dụ 'abc123'
@@ -234,4 +233,4 @@
             });
         }
     });
-        </script>
+</script>

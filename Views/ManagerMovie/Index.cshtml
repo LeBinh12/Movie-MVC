@@ -133,8 +133,11 @@
                                 <img id="detail_thumbnail" src="" alt="Thumbnail" style="max-width: 200px;" class="mt-2" />
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Link trailer:</label>
+                                <label class="form-label fw-bold">Trailer:</label>
                                 <p id="detail_linkTrailer"></p>
+                                <div class="ratio ratio-16x9 mt-2">
+                                    <iframe id="detail_trailer" src="" title="Trailer phim" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label fw-bold">Mô tả phim:</label>
@@ -372,7 +375,7 @@
                                 </div>
                                 <div class="col-md-12 d-none" id="edit_phimBoContainer">
                                     <label class="form-label">Danh sách tập phim</label>
-                                    <div id="edit_tapPhimList">
+                                    <div id="edit_tapPhimList" >
                                         <div class="input-group mb-2 tapPhimItem">
                                             <input type="text" class="form-control me-2" placeholder="Tên tập phim" />
                                             <input type="text" class="form-control me-2" placeholder="Link tập phim" />
@@ -490,6 +493,9 @@ else
     font-size: 1rem;
 }
 
+    .tapPhimItem {
+        display:flex;
+    }
 /* Responsive: Giảm kích thước trên màn hình nhỏ */
 @*@media (max-width: 576px) {
     .pagination {

@@ -1,0 +1,49 @@
+﻿<style>
+    .admin-info {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .logout-link {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        padding: 6px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        white-space: nowrap;
+        display: none;
+        z-index: 1000;
+    }
+
+    .admin-info:hover .logout-link {
+        display: block;
+    }
+
+    .logout-link a {
+        color: #000;
+        text-decoration: none;
+    }
+
+        .logout-link a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center admin-info text-white">
+            <img src="https://tse2.mm.bing.net/th?id=OIP.vg41yG82qw84ziz5nS-CWQHaHa&pid=Api&P=0&h=220"
+                 alt="Avatar Logo"
+                 style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+            <span class="navbar-brand ms-2 mb-0 h1">@ViewBag.AdminName</span>
+
+            <!-- Hover Dropdown -->
+            <div class="logout-link">
+                <a href="/AuthenticationAdmin/Logout">Đăng xuất</a>
+            </div>
+        </div>
+    </div>
+</nav>

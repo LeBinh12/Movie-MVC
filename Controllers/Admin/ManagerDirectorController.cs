@@ -14,6 +14,8 @@ namespace WbeMovieUser.Controllers.Admin
         Model1 data = new Model1();
         public ActionResult Index(string search = "", int? page = 1)
         {
+            if (Session["AdminName"] == null && Session["AdminId"] == null)
+                return RedirectToAction("Index", "AuthenticationAdmin");
             var directorsQuery = data.directors.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -21,11 +23,11 @@ namespace WbeMovieUser.Controllers.Admin
                 directorsQuery = directorsQuery.Where(d => d.name.Contains(search));
             }
 
-            var directors = directorsQuery.ToList();
+            var directors = directorsQuery.OrderByDescending(x => x.director_id).ToList();
 
             ViewBag.Search = search;
 
-            int pageSize = 5; 
+            int pageSize = 10; 
             int pageNumber = (page ?? 1); 
 
             return View(directors.ToPagedList(pageNumber, pageSize));

@@ -1,0 +1,89 @@
+﻿body {
+    background: linear-gradient(to bottom right, #d4faff, #c6f4ff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    width: 900px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.login-form {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .login-form h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #318a94;
+        text-align: center;
+    }
+
+    .login-form p {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .login-form .form-control {
+        border-radius: 12px;
+        height: 45px;
+    }
+
+    .login-form button {
+        border-radius: 12px;
+        background-color: #318a94;
+        border: none;
+        color: white;
+        font-weight: 500;
+        padding: 12px;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+        .login-form button:hover {
+            background-color: #2a7d86;
+        }
+
+.welcome-side {
+    flex: 1;
+    background: linear-gradient(to right, #3e9da8, #318a94);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+    .welcome-side h1 {
+        font-size: 36px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .welcome-side p {
+        margin-top: 15px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+.icon-login {
+    font-size: 40px;
+    color: #318a94;
+    text-align: center;
+    margin-bottom: 10px;
+}

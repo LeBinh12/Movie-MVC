@@ -320,7 +320,16 @@
                     document.getElementById('detail_ngonNgu').textContent = data.Language || 'Chưa có dữ liệu';
                     document.getElementById('detail_linkAnh').textContent = data.ThumbnailUrl || 'Chưa có dữ liệu';
                     document.getElementById('detail_thumbnail').src = data.ThumbnailUrl || '';
+
+
                     document.getElementById('detail_linkTrailer').textContent = data.TrailerUrl || 'Chưa có dữ liệu';
+                    const trailerIframe = document.getElementById('detail_trailer');
+                    if (data.TrailerUrl) {
+                        trailerIframe.src = `https://www.youtube.com/embed/${data.TrailerUrl}?autoplay=1&mute=1`;
+                    } else {
+                        trailerIframe.src = ''; // Xóa src nếu không có trailer
+                    }
+
                     document.getElementById('detail_loaiPhim').textContent = data.IsSeries ? 'Phim bộ' : 'Phim lẻ';
                     document.getElementById('detail_moTa').textContent = data.Description || 'Chưa có mô tả';
 

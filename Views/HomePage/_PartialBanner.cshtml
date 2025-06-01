@@ -5,6 +5,7 @@
 
 
 
+
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <!-- Indicators -->
     <div class="carousel-indicators">
@@ -14,17 +15,17 @@
     </div>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" style="height:550px">
+    <div class="carousel-inner carousel-inner-banner" style="height:700px">
         @if (banner != null)
         {
             foreach (var item in banner)
             {
                 <div class="carousel-item active" style="position: relative; height: 100vh;">
                     <img src="@item.thumbnail_url" class="d-block w-100" style="object-fit: cover; height: 100%; filter: brightness(50%);" alt="Chicago">
-                    <div class="carousel-caption text-start" style="position: absolute; top: 25%; left: 10%; max-width: 40%;">
+                    <div class="carousel-caption carousel-caption-banner text-start" style="position: absolute; top: 25%; left: 10%; max-width: 40%;">
                         <h2 class="fw-bold fs-1">@item.title</h2>
                         @{
-                            var shortDesc = item.description?.Length > 200 ? item.description.Substring(0, 200) + "..." : item.description;
+                            var shortDesc = item.description?.Length > 100 ? item.description.Substring(0, 100) + "..." : item.description;
                             var fullDesc = item.description ?? "";
                             var movieId = item.movie_id; // dùng để tạo ID duy nhất
                         }
@@ -38,7 +39,15 @@
                             }
                         </p>
 
-                        <button class="btn btn-danger px-4 py-2 fw-bold" onclick="showTrailer('@item.trailer_url')">▶ Watch Trailer</button>
+                        <div class="d-flex flex-column flex-md-row gap-2">
+                            <button class="btn btn-danger fw-bold btn-sm btn-md-lg" onclick="showTrailer('@item.trailer_url')">
+                                ▶ Trailer
+                            </button>
+                            <a class="btn btn-danger fw-bold btn-sm btn-md-lg" href="~/Watch?idMovie=@item.movie_id">
+                                ▶ Xem phim
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             }

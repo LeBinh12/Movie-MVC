@@ -25,9 +25,13 @@ namespace WbeMovieUser.Controllers
                 bool hashedPassword = BCrypt.Net.BCrypt.Verify(password, existingEmail.password_hash);
                 if (!hashedPassword)
                     return Json(new { success = false, message = "Mật khẩu không chính xác" });
-
-                existingEmail.last_login = DateTime.Now;
-                movie.SaveChanges();
+                if(existingEmail.is_active == true)
+                    return Json(new { success = false, message = "Tài khoản của bạn đã bị khóa" });
+                if (existingEmail.last_login == null)
+                {
+                    existingEmail.last_login = DateTime.Now;
+                    movie.SaveChanges();
+                }
                 Session["user"] = existingEmail;
                 return Json(new { success = true, message = "Đăng nhập thành công!", userId = existingEmail.user_id });
             }
@@ -57,6 +61,9 @@ namespace WbeMovieUser.Controllers
                 {
                     return Json(new { success = false, message = "Email này đã tồn tại" });
                 }
+                var existingUserName = movie.users.FirstOrDefault(x => x.username == userName);
+                if(existingUserName != null)
+                    return Json(new { success = false, message = "Tên người dùng này đã tồn tại" });
 
                 string avatarPath = null;
                 if (avatar != null)
@@ -180,13 +187,13 @@ namespace WbeMovieUser.Controllers
                 MailMessage mail = new MailMessage();
                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("lephuocbinh.2000@gmail.com"); // Thay bằng email của bạn
+                mail.From = new MailAddress("lephuocbinh.2000@gmail.com");
                 mail.To.Add(email);
                 mail.Subject = "Yêu cầu đặt lại mật khẩu";
                 mail.Body = $"Chào bạn,\n\nMã khôi phục mật khẩu của bạn là: {code}\nMã này có hiệu lực trong 30 phút.\n\nTrân trọng,\nWbeMovieUser";
 
                 smtpClient.Port = 587;
-                smtpClient.Credentials = new System.Net.NetworkCredential("lephuocbinh.2000@gmail.com", "yhgp ditr uzfx xqpn\r\n"); // Thay bằng email và app password
+                smtpClient.Credentials = new System.Net.NetworkCredential("lephuocbinh.2000@gmail.com", "yhgp ditr uzfx xqpn\r\n");
                 smtpClient.EnableSsl = true;
 
                 smtpClient.Send(mail);

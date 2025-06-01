@@ -14,6 +14,9 @@ namespace WbeMovieUser.Controllers.Admin
         Model1 movie = new Model1();
         public ActionResult Index(string search = "", int? page = 1)
         {
+            if (Session["AdminName"] == null && Session["AdminId"] == null)
+                return RedirectToAction("Index", "AuthenticationAdmin");
+
             var movieQuery = movie.movies.AsQueryable();
 
             // Tìm kiếm theo tiêu đề
@@ -22,7 +25,7 @@ namespace WbeMovieUser.Controllers.Admin
                 movieQuery = movieQuery.Where(x => x.title.Contains(search));
             }
 
-            var movieSearch = movieQuery.ToList();
+            var movieSearch = movieQuery.OrderByDescending(x => x.movie_id).ToList();
 
             // Hiển thị tất cả thông tin cần thiết cho phần thêm
             var categories = movie.Categories.Where(x => x.status == true).ToList();
@@ -40,7 +43,7 @@ namespace WbeMovieUser.Controllers.Admin
                 ViewBag.Message = "Không có phim bạn tìm kiếm";
             }
 
-            int pageSize = 5; // Số phim trên mỗi trang
+            int pageSize = 10; // Số phim trên mỗi trang
             int pageNumber = (page ?? 1); // Trang hiện tại, mặc định là 1
             return View(movieSearch.ToPagedList(pageNumber, pageSize));
         }

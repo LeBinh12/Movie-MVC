@@ -1,13 +1,14 @@
-﻿
-<style>
+﻿<style>
     body {
         background-color: #111;
         color: white;
     }
 
-    .carousel-item img {
+    .carousel-item-body img {
         width: 100%;
         border-radius: 10px;
+        max-height: 330px; /* Giảm kích thước hình ảnh cho điện thoại */
+        object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
     }
 
     .movie-card {
@@ -25,22 +26,29 @@
         .movie-card:hover {
             transform: scale(1.05);
         }
+
+    .movie-title {
+        white-space: nowrap; /* Ngăn tiêu đề tràn dòng */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Thêm dấu ... nếu tiêu đề quá dài */
+        max-width: 100%; /* Giới hạn chiều rộng */
+    }
 </style>
 
 @{
     var movie = ViewBag.listMovie1 as List<WbeMovieUser.Models.DTO.MoviesDTO>;
     var movie2 = ViewBag.listMovie2 as List<WbeMovieUser.Models.DTO.MoviesDTO>;
-
-
 }
 
-
-<div class="container-fluid py-4">
-    <h3>Phim mới</h3>
+<div class="container-fluid py-2">
+    <!-- Giảm padding-top từ py-4 thành py-2 -->
+    <!-- Phim mới -->
+    <h3 class="mb-2">Phim mới</h3> <!-- Giảm margin-bottom từ mb-3 thành mb-2 -->
     <div id="movieCarousel" class="carousel slide">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row row-cols-2 row-cols-md-5 g-3">
+            <div class="carousel-item carousel-item-body active">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
+                    <!-- Giảm xuống 1 cột cho điện thoại, giữ 5 cột cho md -->
                     @if (movie != null)
                     {
                         foreach (var item in movie)
@@ -48,9 +56,10 @@
                             <div class="col">
                                 <div class="movie-card">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                        <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                        <img src="@item.thumbnail_url" alt="@item.title" />
                                     </a>
-                                    <p class="text-center mt-2">
+                                    <p class="text-center mt-1 movie-title">
+                                        <!-- Giảm mt-2 thành mt-1 -->
                                         <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                             @item.title
                                         </a>
@@ -61,19 +70,19 @@
                     }
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="row row-cols-2 row-cols-md-5 g-3">
-                    @if (movie != null)
+            <div class="carousel-item carousel-item-body">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
+                    @if (movie2 != null)
                     {
                         foreach (var item in movie2)
                         {
                             <div class="col">
                                 <div class="movie-card">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                        <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                        <img src="@item.thumbnail_url" alt="@item.title" />
                                     </a>
-                                    <p class="text-center mt-2">
-                                        <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white;">
+                                    <p class="text-center mt-1 movie-title">
+                                        <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                             @item.title
                                         </a>
                                     </p>
@@ -94,19 +103,20 @@
         </button>
     </div>
 
-    <h3 class="mb-3">Hành động</h3>
-    <div id="movieCarousel1" class="carousel slide1">
+    <!-- Hành động -->
+    <h3 class="mb-2">Hành động</h3>
+    <div id="movieCarousel1" class="carousel slide">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row row-cols-2 row-cols-md-5 g-3">
+            <div class="carousel-item carousel-item-body active">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories1A)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -116,17 +126,16 @@
                     }
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="row row-cols-2 row-cols-md-4 g-3">
-
+            <div class="carousel-item carousel-item-body">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories1B)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -147,20 +156,20 @@
         </button>
     </div>
 
-
-    <h3 class="mb-3">Tình Cảm</h3>
-    <div id="movieCarousel1" class="carousel slide1">
+    <!-- Tình Cảm -->
+    <h3 class="mb-2">Tình Cảm</h3>
+    <div id="movieCarousel2" class="carousel slide">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row row-cols-2 row-cols-md-5 g-3">
+            <div class="carousel-item carousel-item-body active">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories2A)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -170,17 +179,16 @@
                     }
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="row row-cols-2 row-cols-md-4 g-3">
-
+            <div class="carousel-item carousel-item-body">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories2B)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -191,30 +199,30 @@
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel1" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel2" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel1" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel2" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
 
-
-    <h3 class="mb-3">Anime</h3>
-    <div id="movieCarousel1" class="carousel slide1">
+    <!-- Anime -->
+    <h3 class="mb-2">Anime</h3>
+    <div id="movieCarousel3" class="carousel slide">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row row-cols-2 row-cols-md-5 g-3">
+            <div class="carousel-item carousel-item-body active">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories3A)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -224,17 +232,16 @@
                     }
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="row row-cols-2 row-cols-md-4 g-3">
-
+            <div class="carousel-item carousel-item-body">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories3B)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -245,30 +252,30 @@
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel1" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel3" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel1" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel3" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
 
-
-    <h3 class="mb-3">Tâm Lý</h3>
-    <div id="movieCarousel1" class="carousel slide1">
+    <!-- Tâm Lý -->
+    <h3 class="mb-2">Tâm Lý</h3>
+    <div id="movieCarousel4" class="carousel slide">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row row-cols-2 row-cols-md-5 g-3">
+            <div class="carousel-item carousel-item-body active">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories4A)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -278,17 +285,16 @@
                     }
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="row row-cols-2 row-cols-md-4 g-3">
-
+            <div class="carousel-item carousel-item-body">
+                <div class="row row-cols-1 row-cols-md-5 g-2">
                     @foreach (var item in ViewBag.listMovieCategories4B)
                     {
                         <div class="col">
                             <div class="movie-card">
                                 <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })">
-                                    <img src="@item.thumbnail_url" alt="@item.title" style="height: 355px;" />
+                                    <img src="@item.thumbnail_url" alt="@item.title" />
                                 </a>
-                                <p class="text-center mt-2">
+                                <p class="text-center mt-1 movie-title">
                                     <a href="@Url.Action("Detail", "HomePage", new { id = item.movie_id })" style="text-decoration: none; color: white">
                                         @item.title
                                     </a>
@@ -299,17 +305,41 @@
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel1" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel4" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel1" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel4" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
 </div>
 
+<style>
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-image: none; /* bỏ SVG mặc định */
+        width: 2rem;
+        height: 2rem;
+        border: solid red;
+        border-width: 0 0.25rem 0.25rem 0;
+        padding: 0.25rem;
+        display: inline-block;
+    }
+
+    .carousel-control-prev-icon {
+        transform: rotate(135deg);
+        margin-right: 0.5rem;
+    }
+
+    .carousel-control-next-icon {
+        transform: rotate(-45deg);
+        margin-left: 0.5rem;
+    }
+</style>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

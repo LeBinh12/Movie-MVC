@@ -21,14 +21,5 @@ namespace WbeMovieUser.Controllers
 
             return Json(new { success = true, messages = messages }, JsonRequestBehavior.AllowGet);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _dbContext.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

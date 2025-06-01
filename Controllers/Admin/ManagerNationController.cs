@@ -14,12 +14,14 @@ namespace WbeMovieUser.Controllers.Admin
         Model1 data = new Model1();
         public ActionResult Index(string search = "", int? page = 1)
         {
-            int pageSize = 3; // Số lượng bản ghi mỗi trang
+            if (Session["AdminName"] == null && Session["AdminId"] == null)
+                return RedirectToAction("Index", "AuthenticationAdmin");
+            int pageSize = 10; // Số lượng bản ghi mỗi trang
             int pageNumber = page ?? 1;
 
             var nations = data.Nations
                               .Where(n => string.IsNullOrEmpty(search) || n.nation_name.Contains(search))
-                              .OrderBy(n => n.nation_id)
+                              .OrderByDescending(n => n.nation_id)
                               .ToPagedList(pageNumber, pageSize);
 
             ViewBag.CurrentSearch = search;

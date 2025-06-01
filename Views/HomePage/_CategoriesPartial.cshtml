@@ -1,12 +1,12 @@
 ﻿
 @model List<WbeMovieUser.Models.Category>
-<ul class="dropdown-menu bg-light text-dark border-0" aria-labelledby="categoryDropdown" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
+<ul class="dropdown-menu" aria-labelledby="categoryDropdown">
     @if (Model != null && Model.Any())
     {
         foreach (var category in Model)
         {
             <li>
-                <a class="dropdown-item text-dark" href="@Url.Action("Category", "Child", new { id = category.category_id })" style="transition: all 0.3s ease; text-decoration: none; border-bottom: none;">
+                <a class="dropdown-item" style="text-decoration: none; border-bottom: none;" href="@Url.Action("Category", "Child", new { id = category.category_id })">
                     @category.category_name
                 </a>
             </li>
@@ -14,6 +14,6 @@
     }
     else
     {
-        <li><a class="dropdown-item text-dark" href="#">Không có thể loại</a></li>
+        <li><a class="dropdown-item" href="#">Không có thể loại</a></li>
     }
 </ul>
